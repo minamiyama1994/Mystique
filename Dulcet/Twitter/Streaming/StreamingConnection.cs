@@ -131,6 +131,7 @@ namespace Dulcet.Twitter.Streaming
         {
             if (this.disposed) return;
             System.Diagnostics.Debug.WriteLine("Disposing:" + Provider.ToString());
+            timeoutTimer.Dispose();
             this.disposed = true;
             FinalizeStream();
         }

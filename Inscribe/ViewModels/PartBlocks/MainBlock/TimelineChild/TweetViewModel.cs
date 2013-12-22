@@ -165,8 +165,7 @@ namespace Inscribe.ViewModels.PartBlocks.MainBlock.TimelineChild
 
         private void ResolvePhotos()
         {
-            var tokens = Tokenizer.Tokenize(this.TweetText);
-            var uris = tokens
+            var uris = Tokenizer.Tokenize(this.TweetText)
                 .Where(t => t.Kind == TokenKind.Url).ToArray();
 
             if (uris.Length > 0)

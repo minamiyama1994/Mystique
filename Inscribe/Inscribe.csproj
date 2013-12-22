@@ -86,7 +86,10 @@
     <Compile Include="Filter\Filters\ScreenName\FilterTo.cs" />
     <Compile Include="Filter\MatchingUtil.cs" />
     <Compile Include="Filter\UserFilterBase.cs" />
+    <Compile Include="ParsingExtension.cs" />
     <Compile Include="Subsystems\Protection\StormProtection.cs" />
+    <Compile Include="TwitterRegexPatterns.cs" />
+    <Compile Include="UnixEpoch.cs" />
     <Compile Include="Util\WrappingStream.cs" />
     <Compile Include="Filter\Filters\Text\FilterHashtagText.cs" />
     <Compile Include="Filter\Filters\Text\FilterUrlText.cs" />
