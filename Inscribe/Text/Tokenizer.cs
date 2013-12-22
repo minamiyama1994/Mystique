@@ -1,7 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Inscribe.Text;
+using Inscribe.Anomaly.Utils;
+using Inscribe.Helpers;
 
 namespace Inscribe.Text
 {
@@ -29,33 +30,27 @@ namespace Inscribe.Text
         public static IEnumerable<Token> Tokenize(string raw)
         {
             if (String.IsNullOrEmpty(raw)) yield break;
-            // escape exact.
-            var escaped = Escape(Unescape(raw));
-            escaped = RegularExpressions.UrlRegex.Replace(escaped, (m) =>
+            var escaped = ParsingExtension.EscapeEntity(raw);
+            escaped = TwitterRegexPatterns.ValidUrl.Replace(escaped, m =>
             {
                 // # => &sharp; (ハッシュタグで再識別されることを防ぐ)
-                var repl = m.Groups[1].Value.Replace("#", "&sharp;");
-                return "<U>" + repl + "<";
+                var repl = m.Groups[TwitterRegexPatterns.ValidUrlGroupUrl].Value.Replace("#", "&sharp;");
+                return m.Groups[TwitterRegexPatterns.ValidUrlGroupBefore] + "<U>" + repl + "<";
             });
-            escaped = RegularExpressions.AtRegex.Replace(escaped, "<A>@$1<");
-            escaped = RegularExpressions.HashRegex.Replace(escaped, (m) =>
-            {
-                if (m.Groups.Count > 0)
-                {
-                    return "<H>" + m.Groups[0].Value + "<";
-                }
-                else
-                {
-                    return m.Value;
-                }
-            });
+            escaped = TwitterRegexPatterns.ValidMentionOrList.Replace(
+                escaped,
+                m => m.Groups[TwitterRegexPatterns.ValidMentionOrListGroupBefore].Value +
+                     m.Groups[TwitterRegexPatterns.ValidMentionOrListGroupAt] +
+                     "<A>" + m.Groups[TwitterRegexPatterns.ValidMentionOrListGroupUsername].Value +
+                     m.Groups[TwitterRegexPatterns.ValidMentionOrListGroupList].Value + "<");
+            escaped = TwitterRegexPatterns.ValidHashtag.Replace(escaped, m => m.Groups[1] + "<H>" + m.Groups[1].Value + "<");
             var splitted = escaped.Split(new[] { '<' }, StringSplitOptions.RemoveEmptyEntries);
             foreach (var s in splitted)
             {
                 if (s.Contains('>'))
                 {
                     var kind = s[0];
-                    var body = Unescape(s.Substring(2));
+                    var body = ParsingExtension.ResolveEntity(s.Substring(2));
                     switch (kind)
                     {
                         case 'U':
@@ -69,12 +64,12 @@ namespace Inscribe.Text
                             yield return new Token(TokenKind.Hashtag, body);
                             break;
                         default:
-                            throw new InvalidOperationException("無効な分類です:" + kind.ToString());
+                            throw new InvalidOperationException("invalid grouping:" + kind.ToString());
                     }
                 }
                 else
                 {
-                    yield return new Token(TokenKind.Text, Unescape(s));
+                    yield return new Token(TokenKind.Text, ParsingExtension.ResolveEntity(s));
                 }
             }
         }
