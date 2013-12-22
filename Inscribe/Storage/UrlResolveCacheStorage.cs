@@ -25,7 +25,6 @@ namespace Inscribe.Storage
         public static void AddResolved(string original, string resolved)
         {
             urlResolved.AddOrUpdate(original, resolved);
-            urlResolved.AddOrUpdate(resolved, resolved);
         }
     }
 }

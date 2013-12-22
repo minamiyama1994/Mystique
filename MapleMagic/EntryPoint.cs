@@ -1,19 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.Composition;
-using System.Linq;
-using System.Text.RegularExpressions;
-using System.Threading.Tasks;
-using System.Windows;
-using Acuerdo.Plugin;
+﻿using Acuerdo.Plugin;
 using Dulcet.Twitter;
 using Dulcet.Twitter.Rest;
 using Inscribe.Common;
+using Inscribe.Helpers;
 using Inscribe.Storage;
-using Inscribe.Text;
 using Inscribe.ViewModels.PartBlocks.MainBlock;
 using Livet;
-using Inscribe.Filter.Filters.Text;
+using System;
+using System.Collections.Generic;
+using System.ComponentModel.Composition;
+using System.Linq;
+using System.Threading.Tasks;
+using System.Windows;
 
 namespace MapleMagic
 {
@@ -121,7 +119,7 @@ namespace MapleMagic
             {
                 var tla = t.OfType<TwitterStatus>().ToArray();
                 return tla.Select(s => s.Text)
-                    .Where(s => RegularExpressions.UrlRegex.IsMatch(s)).Count() > tla.Count() * 0.8;
+                    .Where(s => TwitterRegexPatterns.ValidUrl.IsMatch(s)).Count() > tla.Count() * 0.8;
             });
             yield return new AutoSpamRule("直近50ツイートの8割以上に\"RT\"が含まれる", (u, t) =>
             {
