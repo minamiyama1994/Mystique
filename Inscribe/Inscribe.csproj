@@ -284,6 +284,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Storage\TweetStorage.cs" />
     <Compile Include="ViewModels\PartBlocks\MainBlock\UserViewModel.cs" />
+    <Compile Include="Anomaly\Utils\ParsingExtension.cs" />
+    <Compile Include="Anomaly\Utils\UnixEpoch.cs" />
+    <Compile Include="Helpers\TwitterRegexPatterns.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Communication\CommunicationOverView.txt" />
@@ -303,6 +306,9 @@
       <Project>{2E6A1FEF-EDC5-4588-99A0-A70EC237FB28}</Project>
       <Name>Nightmare</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="NewFolder1\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

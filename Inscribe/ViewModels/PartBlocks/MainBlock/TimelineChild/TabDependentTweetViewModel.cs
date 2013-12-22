@@ -1,13 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text.RegularExpressions;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Input;
-using System.Windows.Media;
-using Dulcet.Twitter;
+﻿using Dulcet.Twitter;
 using Dulcet.Twitter.Rest;
+using Inscribe.Authentication;
 using Inscribe.Common;
 using Inscribe.Communication.Posting;
 using Inscribe.Configuration;
@@ -17,6 +10,7 @@ using Inscribe.Filter;
 using Inscribe.Filter.Filters.Numeric;
 using Inscribe.Filter.Filters.Particular;
 using Inscribe.Filter.Filters.Text;
+using Inscribe.Helpers;
 using Inscribe.Storage;
 using Inscribe.Subsystems;
 using Inscribe.Text;
@@ -25,7 +19,14 @@ using Inscribe.ViewModels.Dialogs;
 using Livet;
 using Livet.Commands;
 using Livet.Messaging;
-using Inscribe.Authentication;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text.RegularExpressions;
+using System.Threading.Tasks;
+using System.Windows;
+using System.Windows.Input;
+using System.Windows.Media;
 
 namespace Inscribe.ViewModels.PartBlocks.MainBlock.TimelineChild
 {
@@ -1518,7 +1519,7 @@ namespace Inscribe.ViewModels.PartBlocks.MainBlock.TimelineChild
 
         public void OpenIndexOfUrl(int index)
         {
-            var m = RegularExpressions.UrlRegex.Matches(this.Tweet.TweetText)
+            var m = TwitterRegexPatterns.ValidUrl.Matches(this.Tweet.TweetText)
                 .Cast<Match>().Skip(index).FirstOrDefault();
             if (m == null) return;
             Browser.Start(m.Value);

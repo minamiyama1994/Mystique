@@ -1,11 +1,11 @@
-﻿using System.Linq;
-using System.Text.RegularExpressions;
-using Dulcet.Twitter;
+﻿using Dulcet.Twitter;
 using Inscribe.Configuration.Tabs;
+using Inscribe.Helpers;
 using Inscribe.Storage;
-using Inscribe.Text;
 using Inscribe.ViewModels.PartBlocks.MainBlock;
 using Inscribe.ViewModels.PartBlocks.MainBlock.TimelineChild;
+using System.Linq;
+using System.Text.RegularExpressions;
 
 namespace Inscribe.Common
 {
@@ -159,7 +159,7 @@ namespace Inscribe.Common
             if (tweet != null && tweet.RetweetedOriginal == null)
             {
                 // リツイートステータス以外で、自分への返信を探す
-                var matches = RegularExpressions.AtRegex.Matches(status.Text);
+                var matches = TwitterRegexPatterns.ValidMentionOrList.Matches(status.Text);
                 if (matches.Count > 0 && matches.Cast<Match>().Select(m => m.Value)
                         .Where(s => AccountStorage.Contains(s)).FirstOrDefault() != null)
                     return true;

@@ -1,4 +1,22 @@
-﻿using System;
+﻿using Dulcet.Twitter;
+using Inscribe.Authentication;
+using Inscribe.Common;
+using Inscribe.Communication.Posting;
+using Inscribe.Communication.UserStreams;
+using Inscribe.Configuration;
+using Inscribe.Core;
+using Inscribe.Helpers;
+using Inscribe.Storage;
+using Inscribe.Subsystems;
+using Inscribe.Text;
+using Inscribe.ViewModels.Common;
+using Inscribe.ViewModels.Dialogs;
+using Inscribe.ViewModels.PartBlocks.MainBlock;
+using Inscribe.ViewModels.PartBlocks.MainBlock.TimelineChild;
+using Livet;
+using Livet.Commands;
+using Livet.Messaging;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
@@ -11,23 +29,6 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using Dulcet.Twitter;
-using Inscribe.Authentication;
-using Inscribe.Common;
-using Inscribe.Communication.Posting;
-using Inscribe.Communication.UserStreams;
-using Inscribe.Configuration;
-using Inscribe.Core;
-using Inscribe.Storage;
-using Inscribe.Subsystems;
-using Inscribe.Text;
-using Inscribe.ViewModels.Common;
-using Inscribe.ViewModels.Dialogs;
-using Inscribe.ViewModels.PartBlocks.MainBlock;
-using Inscribe.ViewModels.PartBlocks.MainBlock.TimelineChild;
-using Livet;
-using Livet.Commands;
-using Livet.Messaging;
 
 namespace Inscribe.ViewModels.PartBlocks.InputBlock
 {
@@ -660,7 +661,7 @@ namespace Inscribe.ViewModels.PartBlocks.InputBlock
                     }
                     else
                     {
-                        var mentions = RegularExpressions.AtRegex.Matches(tweet.TweetText);
+                        var mentions = TwitterRegexPatterns.ValidMentionOrList.Matches(tweet.TweetText);
                         var sns = new[] { "@" + screen }.Concat(mentions.Cast<Match>().Select(m => m.Value))
                             .Distinct().Where(s => !AccountStorage.Contains(s)).ToArray();
                         /*
@@ -908,7 +909,7 @@ namespace Inscribe.ViewModels.PartBlocks.InputBlock
             }
 
             // バインドヘルパーの処理
-            var unbounds = RegularExpressions.HashRegex.Matches(_intelliSenseTextBoxViewModel.TextBoxText)
+            var unbounds = TwitterRegexPatterns.ValidHashtag.Matches(_intelliSenseTextBoxViewModel.TextBoxText)
                 .Cast<Match>().Select(m => m.Value)
                 .Except(bindingTags);
             bindCandidateTags.Except(unbounds).ToArray().ForEach(s => bindCandidateTags.Remove(s));

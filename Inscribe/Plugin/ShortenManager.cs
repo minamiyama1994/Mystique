@@ -1,9 +1,8 @@
-﻿using System;
+﻿using Acuerdo.External.Shortener;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using Acuerdo.External.Shortener;
-using Inscribe.Configuration;
 
 namespace Inscribe.Plugin
 {
@@ -69,6 +68,18 @@ namespace Inscribe.Plugin
                     return extd;
                 }
             }
+            return ExtractForTimeline(url);
+        }
+
+        /// <summary>
+        /// Extractのタイムライン表示用です
+        /// extractorsによるゴニョゴニョがあるとURLの表示2回目以降短縮URLが展開されないけれども、Extractそのものを弄ると他の場所にも影響が出るので別途関数を用意しました
+        /// </summary>
+        /// <param name="url"></param>
+        /// <returns></returns>
+        public static string ExtractForTimeline(string url)
+        {
+            string extd;
             if (commonExtractor.TryDecompress(url, out extd))
             {
                 return extd;

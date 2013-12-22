@@ -1,12 +1,12 @@
-﻿using System;
+﻿using Inscribe.Authentication;
+using Inscribe.Helpers;
+using Inscribe.Storage;
+using Inscribe.ViewModels.Common;
+using Livet;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
-using Inscribe.Authentication;
-using Inscribe.Storage;
-using Inscribe.Text;
-using Inscribe.ViewModels.Common;
-using Livet;
 
 namespace Inscribe.ViewModels.PartBlocks.InputBlock
 {
@@ -88,7 +88,7 @@ namespace Inscribe.ViewModels.PartBlocks.InputBlock
 
         public IEnumerable<TweetWorker> ReadyUpdate(InputBlockViewModel ibvm, IEnumerable<string> bindTags, IEnumerable<AccountInfo> infos)
         {
-            var containsTags = RegularExpressions.HashRegex.Matches(InputText)
+            var containsTags = TwitterRegexPatterns.ValidHashtag.Matches(InputText)
                 .Cast<Match>().Select(m => m.Value).ToArray();
             var excepteds = bindTags.Except(containsTags).Distinct();
             return infos
