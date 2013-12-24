@@ -159,7 +159,7 @@ namespace Inscribe.Common
             if (tweet != null && tweet.RetweetedOriginal == null)
             {
                 // リツイートステータス以外で、自分への返信を探す
-                var matches = TwitterRegexPatterns.ValidMentionOrList.Matches(status.Text);
+                var matches = TwitterRegexPatterns.ValidReply.Matches(status.Text);
                 if (matches.Count > 0 && matches.Cast<Match>().Select(m => m.Value)
                         .Where(s => AccountStorage.Contains(s)).FirstOrDefault() != null)
                     return true;

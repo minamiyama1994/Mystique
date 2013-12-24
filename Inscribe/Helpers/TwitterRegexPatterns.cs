@@ -169,7 +169,7 @@ namespace Inscribe.Helpers
         public static readonly Regex RtlChars = new Regex("[\u0600-\u06FF\u0750-\u077F\u0590-\u05FF\uFE70-\uFEFF]");
 
         public static readonly Regex AtSigns = new Regex("[" + AtSignsChars + "]");
-        public static readonly Regex ValidMentionOrList = new Regex("([^a-z0-9_!#$%&*" + AtSignsChars + "]|^|RT:?)(" + AtSigns + "+)([a-z0-9_]{1,20})(/[a-z][a-z0-9_\\-]{0,24})?", RegexOptions.IgnoreCase);
+        public static readonly Regex ValidMentionOrList = new Regex("([^a-z0-9_!#$%&*" + AtSignsChars + "]|^|RT)(" + AtSigns + "+)([a-z0-9_]{1,20})(/[a-z][a-z0-9_\\-]{0,24})?", RegexOptions.IgnoreCase);
         public static readonly int ValidMentionOrListGroupBefore = 1;
         public static readonly int ValidMentionOrListGroupAt = 2;
         public static readonly int ValidMentionOrListGroupUsername = 3;

@@ -55,7 +55,7 @@ namespace Inscribe.Filter.Filters.Particular
             if (status.User.NumericId == info.NumericId)
                 return true;
             // 自分への返信かどうか
-            if (TwitterRegexPatterns.ValidMentionOrList.Matches(status.Text)
+            if (TwitterRegexPatterns.ValidReply.Matches(status.Text)
                 .OfType<Match>()
                 .Any(s => s.Value.Equals(info.ScreenName, StringComparison.CurrentCultureIgnoreCase)))
                 return true;

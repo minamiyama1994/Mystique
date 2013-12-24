@@ -58,7 +58,7 @@ namespace Inscribe.Filter.Filters.Particular
 
                 // ここおかしい, @が入る
                 // あとユーザー名マッチングを使えるように
-                if (TwitterRegexPatterns.ValidMentionOrList.Matches(status.Text).Cast<Match>()
+                if (TwitterRegexPatterns.ValidReply.Matches(status.Text).Cast<Match>()
                     .Any(m => m.Value.Equals("@" + user1, StringComparison.CurrentCultureIgnoreCase) ||
                         m.Value.Equals("@" + user2, StringComparison.CurrentCultureIgnoreCase)))
                     return true;

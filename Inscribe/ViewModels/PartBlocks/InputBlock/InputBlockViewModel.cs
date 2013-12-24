@@ -661,7 +661,7 @@ namespace Inscribe.ViewModels.PartBlocks.InputBlock
                     }
                     else
                     {
-                        var mentions = TwitterRegexPatterns.ValidMentionOrList.Matches(tweet.TweetText);
+                        var mentions = TwitterRegexPatterns.ValidReply.Matches(tweet.TweetText);
                         var sns = new[] { "@" + screen }.Concat(mentions.Cast<Match>().Select(m => m.Value))
                             .Distinct().Where(s => !AccountStorage.Contains(s)).ToArray();
                         /*

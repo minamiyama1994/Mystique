@@ -42,7 +42,7 @@ namespace Inscribe.Filter.Filters.ScreenName
                 }
                 else
                 {
-                    return TwitterRegexPatterns.ValidMentionOrList.Matches(status.Text)
+                    return TwitterRegexPatterns.ValidReply.Matches(status.Text)
                         .Cast<Match>().Any(m => Match(m.Groups[1].Value, needle));
                 }
             }
