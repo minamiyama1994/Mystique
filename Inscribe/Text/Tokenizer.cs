@@ -1,8 +1,8 @@
-﻿using System;
+﻿using Inscribe.Anomaly.Utils;
+using Inscribe.Helpers;
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using Inscribe.Anomaly.Utils;
-using Inscribe.Helpers;
 
 namespace Inscribe.Text
 {
@@ -40,10 +40,14 @@ namespace Inscribe.Text
             escaped = TwitterRegexPatterns.ValidMentionOrList.Replace(
                 escaped,
                 m => m.Groups[TwitterRegexPatterns.ValidMentionOrListGroupBefore].Value +
-                     m.Groups[TwitterRegexPatterns.ValidMentionOrListGroupAt] +
-                     "<A>" + m.Groups[TwitterRegexPatterns.ValidMentionOrListGroupUsername].Value +
+                     "<A>" + m.Groups[TwitterRegexPatterns.ValidMentionOrListGroupAt].Value +
+                     m.Groups[TwitterRegexPatterns.ValidMentionOrListGroupUsername].Value +
                      m.Groups[TwitterRegexPatterns.ValidMentionOrListGroupList].Value + "<");
-            escaped = TwitterRegexPatterns.ValidHashtag.Replace(escaped, m => m.Groups[1] + "<H>" + m.Groups[1].Value + "<");
+            escaped = TwitterRegexPatterns.ValidHashtag.Replace(
+                escaped,
+                m => m.Groups[TwitterRegexPatterns.ValidHashtagGroupBefore] +
+                    "<H>" + m.Groups[TwitterRegexPatterns.ValidHashtagGroupHash].Value +
+                    m.Groups[TwitterRegexPatterns.ValidHashtagGroupTag].Value + "<");
             var splitted = escaped.Split(new[] { '<' }, StringSplitOptions.RemoveEmptyEntries);
             foreach (var s in splitted)
             {

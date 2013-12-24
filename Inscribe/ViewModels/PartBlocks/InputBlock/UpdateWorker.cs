@@ -1,12 +1,4 @@
-﻿using System;
-using System.IO;
-using System.Linq;
-using System.Net;
-using System.Threading;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Media;
-using Acuerdo.External.Uploader;
+﻿using Acuerdo.External.Uploader;
 using Inscribe.Authentication;
 using Inscribe.Communication.Posting;
 using Inscribe.Configuration;
@@ -15,6 +7,14 @@ using Inscribe.Storage;
 using Inscribe.Text;
 using Livet;
 using Livet.Commands;
+using System;
+using System.IO;
+using System.Linq;
+using System.Net;
+using System.Threading;
+using System.Threading.Tasks;
+using System.Windows;
+using System.Windows.Media;
 
 namespace Inscribe.ViewModels.PartBlocks.InputBlock
 {

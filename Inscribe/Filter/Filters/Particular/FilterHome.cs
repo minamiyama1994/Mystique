@@ -1,12 +1,12 @@
-﻿using System;
+﻿using Dulcet.Twitter;
+using Inscribe.Authentication;
+using Inscribe.Filter.Core;
+using Inscribe.Helpers;
+using Inscribe.Storage;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
-using Dulcet.Twitter;
-using Inscribe.Authentication;
-using Inscribe.Filter.Core;
-using Inscribe.Storage;
-using Inscribe.Text;
 
 namespace Inscribe.Filter.Filters.Particular
 {
@@ -55,7 +55,7 @@ namespace Inscribe.Filter.Filters.Particular
             if (status.User.NumericId == info.NumericId)
                 return true;
             // 自分への返信かどうか
-            if (RegularExpressions.AtRegex.Matches(status.Text)
+            if (TwitterRegexPatterns.ValidMentionOrList.Matches(status.Text)
                 .OfType<Match>()
                 .Any(s => s.Value.Equals(info.ScreenName, StringComparison.CurrentCultureIgnoreCase)))
                 return true;

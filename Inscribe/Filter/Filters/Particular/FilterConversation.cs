@@ -1,11 +1,11 @@
-﻿using System;
+﻿using Dulcet.Twitter;
+using Inscribe.Filter.Core;
+using Inscribe.Helpers;
+using Inscribe.Storage;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
-using Dulcet.Twitter;
-using Inscribe.Filter.Core;
-using Inscribe.Storage;
-using Inscribe.Text;
 
 namespace Inscribe.Filter.Filters.Particular
 {
@@ -58,7 +58,7 @@ namespace Inscribe.Filter.Filters.Particular
 
                 // ここおかしい, @が入る
                 // あとユーザー名マッチングを使えるように
-                if (RegularExpressions.AtRegex.Matches(status.Text).Cast<Match>()
+                if (TwitterRegexPatterns.ValidMentionOrList.Matches(status.Text).Cast<Match>()
                     .Any(m => m.Value.Equals("@" + user1, StringComparison.CurrentCultureIgnoreCase) ||
                         m.Value.Equals("@" + user2, StringComparison.CurrentCultureIgnoreCase)))
                     return true;

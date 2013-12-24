@@ -1,6 +1,6 @@
-﻿using System.Linq;
+﻿using Inscribe.Helpers;
+using System.Linq;
 using System.Text.RegularExpressions;
-using Inscribe.Text;
 
 namespace Inscribe.Filter.Filters.Text
 {
@@ -18,7 +18,7 @@ namespace Inscribe.Filter.Filters.Text
 
         protected override bool FilterStatus(Dulcet.Twitter.TwitterStatusBase status)
         {
-            return RegularExpressions.HashRegex.Matches(status.Text).OfType<Match>()
+            return TwitterRegexPatterns.ValidHashtag.Matches(status.Text).OfType<Match>()
                 .Any(m => this.Match(m.Value, this.needle, this.isCaseSensitive));
         }
 

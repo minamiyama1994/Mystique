@@ -1,9 +1,9 @@
-﻿using System;
+﻿using Inscribe.Helpers;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
-using Inscribe.Text;
 
 namespace Inscribe.Storage
 {
@@ -27,7 +27,7 @@ namespace Inscribe.Storage
             {
                 Task.Factory.StartNew(() =>
                 {
-                    RegularExpressions.HashRegex.Matches(e.Tweet.TweetText)
+                    TwitterRegexPatterns.ValidHashtag.Matches(e.Tweet.TweetText)
                         .OfType<Match>()
                         .Select(m => m.Value)
                         .ForEach(t => AddHashtag(t));

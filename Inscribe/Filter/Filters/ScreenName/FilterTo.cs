@@ -1,9 +1,9 @@
-﻿using System;
+﻿using Dulcet.Twitter;
+using Inscribe.Filter.Core;
+using Inscribe.Helpers;
+using System;
 using System.Linq;
 using System.Text.RegularExpressions;
-using Dulcet.Twitter;
-using Inscribe.Filter.Core;
-using Inscribe.Text;
 
 namespace Inscribe.Filter.Filters.ScreenName
 {
@@ -42,7 +42,7 @@ namespace Inscribe.Filter.Filters.ScreenName
                 }
                 else
                 {
-                    return RegularExpressions.AtRegex.Matches(status.Text)
+                    return TwitterRegexPatterns.ValidMentionOrList.Matches(status.Text)
                         .Cast<Match>().Any(m => Match(m.Groups[1].Value, needle));
                 }
             }

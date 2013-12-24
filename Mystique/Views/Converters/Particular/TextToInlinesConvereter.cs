@@ -1,14 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text.RegularExpressions;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using Inscribe.Common;
+﻿using Inscribe.Common;
 using Inscribe.Configuration;
 using Inscribe.Configuration.Settings;
 using Inscribe.Core;
@@ -16,9 +6,18 @@ using Inscribe.Filter.Filters.Numeric;
 using Inscribe.Filter.Filters.Text;
 using Inscribe.Plugin;
 using Inscribe.Storage;
-using Mystique.Views.Common;
-using System.Web;
 using Inscribe.Text;
+using Mystique.Views.Common;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text.RegularExpressions;
+using System.Web;
+using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Data;
+using System.Windows.Documents;
+using System.Windows.Input;
 
 namespace Mystique.Views.Converters.Particular
 {
@@ -41,7 +40,7 @@ namespace Mystique.Views.Converters.Particular
                 case InlineConversionMode.Full:
                     return TextToFlowConversionStatic.Generate(input).ToArray();
                 case InlineConversionMode.Digest:
-                    return TextToFlowConversionStatic.GenerateDigest(input).ToArray();
+                    return TextToFlowConversionStatic.Generate/*Digest*/(input).ToArray();
                 default:
                     return TextToFlowConversionStatic.Generate(input).ToArray();
             }
@@ -107,17 +106,8 @@ namespace Mystique.Views.Converters.Particular
                                 string nurl = null;
                                 if ((nurl = UrlResolveCacheStorage.Lookup(ctt)) == null)
                                 {
-                                    nurl = ShortenManager.Extract(ctt);
-                                    if (nurl != ctt)
-                                    {
-                                        // resolved
-                                        UrlResolveCacheStorage.AddResolved(ctt, nurl);
-                                    }
-                                    else
-                                    {
-                                        // unresolved
-                                        UrlResolveCacheStorage.AddResolved(ctt, ctt);
-                                    }
+                                    nurl = ShortenManager.ExtractForTimeline(ctt);
+                                    UrlResolveCacheStorage.AddResolved(ctt, nurl);
                                 }
                                 if (String.IsNullOrEmpty(nurl))
                                 {
