@@ -1,6 +1,6 @@
 ﻿using System.Text.RegularExpressions;
 
-namespace Krile.Helpers
+namespace Inscribe.Helpers
 {
     public static class TwitterRegexPatterns
     {

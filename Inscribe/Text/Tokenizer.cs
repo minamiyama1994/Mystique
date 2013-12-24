@@ -25,7 +25,7 @@ namespace Inscribe.Text
         /// <summary>
         /// 文字列をトークン化します。
         /// </summary>
-        /// <param name="escaped">エスケープされた文字列</param>
+        /// <param name="raw">エスケープされた文字列</param>
         /// <returns>トークンの列挙</returns>
         public static IEnumerable<Token> Tokenize(string raw)
         {

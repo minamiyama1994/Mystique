@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Krile.Anomaly.Utils
+namespace Inscribe.Anomaly.Utils
 {
     public static class UnixEpoch
     {

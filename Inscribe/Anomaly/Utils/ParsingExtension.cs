@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Xml.Linq;
 
-namespace Krile.Anomaly.Utils
+namespace Inscribe.Anomaly.Utils
 {
     /// <summary>
     /// XML Node Parser
