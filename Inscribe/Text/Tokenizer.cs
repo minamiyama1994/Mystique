@@ -12,17 +12,6 @@ namespace Inscribe.Text
     /// </summary>
     public static class Tokenizer
     {
-        private static string Escape(string raw)
-        {
-            return raw.Replace("&", "&amp;").Replace("<", "&lt;").Replace(">", "&gt;");
-        }
-
-        private static string Unescape(string escaped)
-        {
-            return escaped.Replace("&lt;", "<").Replace("&gt;", ">").Replace("&amp;", "&");
-        }
-
-
         /// <summary>
         /// 文字列をトークン化します。
         /// </summary>
